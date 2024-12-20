@@ -1,0 +1,23 @@
+---
+- name: Manage Users and Groups
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure group "webadmin" exists
+      ansible.builtin.group:
+        name: webadmin
+        state: present
+
+    - name: Create user "john"
+      ansible.builtin.user:
+        name: john
+        group: webadmin
+        createhome: yes
+        shell: /bin/bash
+        state: present
+
+    - name: Ensure user "john" has sudo privileges
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/john
+        content: "john ALL=(ALL) NOPASSWD: ALL"
+        validate: 'visudo -cf %s' 

@@ -1,0 +1,12 @@
+---
+- name: Example playbook using the fail module
+  hosts: all
+  tasks:
+    - name: Check if custom configuration file exists
+      ansible.builtin.stat:
+        path: "/path/to/my/custom.config"
+      register: custom_config_stat
+    - name: Fail if the file does not exist
+      ansible.builtin.fail:
+        msg: "The custom configuration file is missing. Please ensure /path/to/my/custom.config exists."
+      when: not custom_config_stat.stat.exists

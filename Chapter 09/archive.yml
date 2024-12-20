@@ -1,0 +1,10 @@
+---
+- name: Create a tar archive of a directory
+  hosts: all
+  become: yes
+  tasks:
+    - name: Archive the /var/log directory
+      ansible.builtin.archive:
+        path: /var/log
+        dest: /root/log_archive.tar.gz
+        format: gz

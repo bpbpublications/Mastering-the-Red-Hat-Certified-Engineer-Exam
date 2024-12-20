@@ -1,0 +1,51 @@
+---
+- name: RHEL Security Management
+  hosts: all
+  become: true
+  vars:
+    user_name: "secureuser"
+    user_password: "{{ 'securepassword' | password_hash('sha512') }}"
+  tasks:
+    - name: Ensure a secure user is present
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        password: "{{ user_password }}"
+        comment: "Secure User"
+    - name: Ensure SSH root login is disabled
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+      notify: restart sshd
+    - name: Ensure SELinux is set to enforcing
+      ansible.posix.selinux:
+        policy: targeted
+        state: enforcing
+    - name: Ensure firewalld is installed
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+    - name: Start and enable firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: yes
+    - name: Add ssh service to firewalld
+      ansible.builtin.firewalld:
+        service: ssh
+        permanent: yes
+        state: enabled
+    - name: Ensure auditd is installed
+      ansible.builtin.package:
+        name: audit
+        state: present
+    - name: Ensure auditd service is running and enabled
+      ansible.builtin.service:
+        name: auditd
+        state: started
+        enabled: yes
+  handlers:
+    - name: restart sshd
+      ansible.builtin.service:
+        name: sshd
+        state: restarted

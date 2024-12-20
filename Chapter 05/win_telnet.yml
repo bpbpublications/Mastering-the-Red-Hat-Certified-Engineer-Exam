@@ -1,0 +1,8 @@
+---
+- name: Ensure Telnet Client feature is installed on Windows Servers
+  hosts: windows
+  tasks:
+    - name: Install Telnet Client
+      win_feature:
+        name: "Telnet-Client"
+        state: present

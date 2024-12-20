@@ -1,0 +1,7 @@
+---
+    - name: Ensure the directory exists and set GID
+      ansible.builtin.file:
+        path: /srv/test
+        state: directory
+        group: test
+        mode: '2755'

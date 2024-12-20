@@ -1,0 +1,9 @@
+---
+- name: Install nginx
+  hosts: web_servers
+  become: true
+  tasks:
+    - name: Ensure nginx is installed
+      ansible.builtin.yum:
+        name: nginx
+        state: present

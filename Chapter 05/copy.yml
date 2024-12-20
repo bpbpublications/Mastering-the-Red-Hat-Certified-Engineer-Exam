@@ -1,0 +1,11 @@
+---
+- name: Deploy Configuration File
+  hosts: all
+  tasks:
+    - name: Copy configuration file to managed node
+      ansible.builtin.copy:
+        src: /path/to/local/config.file
+        dest: /path/to/remote/config.file
+        owner: root
+        group: root
+        mode: '0644'

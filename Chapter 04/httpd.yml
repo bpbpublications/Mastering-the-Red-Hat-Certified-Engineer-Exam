@@ -1,0 +1,5 @@
+---
+- name: Web server installed
+  ansible.builtin.dnf:
+    name: httpd
+    state: present

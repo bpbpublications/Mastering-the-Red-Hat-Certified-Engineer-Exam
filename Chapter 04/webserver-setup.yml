@@ -1,0 +1,19 @@
+---
+- name: Install and start Apache
+  hosts: web_servers
+  become: true
+  tasks:
+  - name: Install Apache
+    ansible.builtin.yum:
+      name: httpd
+      state: present
+  - name: Start Apache
+    ansible.builtin.service:
+      name: httpd
+      state: started
+    notify: restart apache
+  handlers:
+  - name: restart apache
+    ansible.builtin.service:
+      name: httpd
+      state: restarted

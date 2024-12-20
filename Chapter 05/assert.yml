@@ -1,0 +1,15 @@
+---
+- name: Example playbook using the assert module
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Collect the system's distribution information
+      ansible.builtin.setup:
+        filter: ansible_distribution
+    - name: Assert multiple conditions
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution == "Ubuntu"
+          - ansible_distribution_version is version('24.04', '>=')
+        fail_msg: "This playbook can only be run on Ubuntu 24.04 or newer."
+        success_msg: "Distribution check passed."

@@ -1,0 +1,9 @@
+---
+- name: Configure VLANs on Cisco switches
+  hosts: switches
+  gather_facts: false
+  tasks:
+    - name: Ensure VLANs are present
+      cisco.nxos.nxos_vlans:
+        vlan_id: "{{ vlan_id }}"
+        name: "{{ vlan_name }}"

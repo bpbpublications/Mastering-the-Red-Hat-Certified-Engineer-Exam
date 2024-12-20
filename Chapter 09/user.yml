@@ -1,0 +1,12 @@
+---
+- name: Ensure a user exists
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create a new user
+      ansible.builtin.user:
+        name: johndoe
+        uid: 1001
+        comment: "John Doe"
+        shell: /bin/bash
+        state: present

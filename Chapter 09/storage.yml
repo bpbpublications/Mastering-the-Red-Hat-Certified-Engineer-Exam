@@ -1,0 +1,17 @@
+---
+- name: Ensure a filesystem is mounted
+  hosts: all
+  become: true
+  tasks:
+    - name: Create mount point
+      ansible.builtin.file:
+        path: /mnt/data
+        state: directory
+    
+    - name: Mount the filesystem
+      ansible.builtin.mount:
+        path: /mnt/data
+        src: /dev/sdb1
+        fstype: xfs
+        opts: defaults
+        state: mounted

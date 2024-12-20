@@ -1,0 +1,10 @@
+---
+- name: Extract a tar archive
+  hosts: all
+  become: true
+  tasks:
+    - name: Extract archive to /opt
+      ansible.builtin.unarchive:
+        src: /root/log_archive.tar.gz
+        dest: /opt
+        remote_src: yes

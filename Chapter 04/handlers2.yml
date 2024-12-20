@@ -1,0 +1,35 @@
+---
+- name: Example playbook to trigger multiple handlers
+  hosts: all
+  become: true
+  tasks:
+    - name: Install nginx
+      ansible.builtin.yum:
+        name: nginx
+        state: latest
+      notify:
+        - Start nginx
+        - Enable nginx
+    - name: Update nginx configuration
+      ansible.builtin.copy:
+        src: /path/to/new/nginx.conf
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Reload nginx
+  handlers:
+    - name: Start nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+    - name: Enable nginx
+      ansible.builtin.service:
+        name: nginx
+        enabled: yes
+
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded

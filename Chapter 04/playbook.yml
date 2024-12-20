@@ -1,0 +1,13 @@
+---
+- name: Apache Web Server installed and running
+  hosts: web
+  tasks:
+    - name: Apache installed
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+    - name: Apache running
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true

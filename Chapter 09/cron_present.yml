@@ -1,0 +1,11 @@
+---
+- name: Schedule a cron job
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure a cron job runs a script daily
+      ansible.builtin.cron:
+        name: "Daily backup"
+        minute: "0"
+        hour: "2"
+        job: "/usr/local/bin/backup.sh"

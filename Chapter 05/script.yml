@@ -1,0 +1,9 @@
+---
+- name: Run script as some_user
+  hosts: all
+  become: true
+  become_method: su
+  become_user: some_user
+  tasks:
+    - name: Run a script
+      ansible.builtin.script: /usr/local/bin/somescript.sh

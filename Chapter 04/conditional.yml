@@ -1,0 +1,11 @@
+---
+- name: Conditional execution example
+  hosts: all
+  vars:
+    configure_nginx: false
+  tasks:
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+      when: configure_nginx

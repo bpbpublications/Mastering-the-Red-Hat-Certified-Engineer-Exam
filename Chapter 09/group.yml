@@ -1,0 +1,10 @@
+---
+- name: Ensure a group exists
+  hosts: all
+  become: yes
+  tasks:
+    - name: Create a new group
+      ansible.builtin.group:
+        name: admin
+        gid: 1001
+        state: present

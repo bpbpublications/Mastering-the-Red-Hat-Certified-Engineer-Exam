@@ -1,0 +1,19 @@
+---
+- name: First play
+  hosts: web
+  tasks:
+    - name: Apache installed
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+    - name: Apache service enabled
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+- name: Second play
+  hosts: database
+  tasks:
+    - name: MariaDB service enabled
+      ansible.builtin.service:
+        name: mariadb
+        enabled: true

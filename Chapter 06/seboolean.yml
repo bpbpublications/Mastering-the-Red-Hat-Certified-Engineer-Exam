@@ -1,0 +1,20 @@
+---
+- name: Configure SELinux for Network Services Control
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure SELinux is set to enforcing mode
+      ansible.posix.selinux:
+        state: enforcing
+
+    - name: Allow NGINX to connect to the network
+      ansible.posix.seboolean:
+        name: nginx_can_network_connect
+        state: yes
+        persistent: yes
+
+    - name: Restrict SNMP network access
+      ansible.posix.seboolean:
+        name: snmpd_can_talk_tcp
+        state: no
+        persistent: yes

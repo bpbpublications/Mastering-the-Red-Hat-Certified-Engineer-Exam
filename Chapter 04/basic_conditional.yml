@@ -1,0 +1,11 @@
+---
+- name: Basic conditional
+  hosts: all
+  vars:
+    configure_nginx: true
+  tasks:
+    - name: Reload nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+      when: configure_nginx

@@ -1,0 +1,9 @@
+---
+- name: Secure Playbook
+  hosts: all
+  vars_files:
+    - secret.yml
+  tasks:
+    - name: Ensure sensitive data is protected
+      debug:
+        msg: "{{ sensitive_data }}"

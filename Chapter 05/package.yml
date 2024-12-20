@@ -1,0 +1,9 @@
+---
+- name: Install package as root
+  hosts: all
+  become: true
+  tasks:
+    - name: Install a package
+      Ansible.builtin.dnf:
+        name: vim
+        state: latest

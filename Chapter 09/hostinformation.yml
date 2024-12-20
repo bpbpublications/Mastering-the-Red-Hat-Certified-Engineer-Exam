@@ -1,0 +1,21 @@
+---
+- name: Generate index file with host information
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Gather host facts
+      ansible.builtin.setup:
+        gather_subset: 'min'
+
+    - name: Create index file from template
+      ansible.builtin.template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+      notify:
+        - Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: httpd
+        state: restarted

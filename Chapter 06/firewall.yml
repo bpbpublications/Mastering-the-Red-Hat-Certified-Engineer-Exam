@@ -1,0 +1,42 @@
+---
+- name: Configure and Manage Firewalld
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure firewalld is installed
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+    - name: Start and enable firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: yes
+    - name: Enable HTTP and HTTPS services on the default zone
+      ansible.builtin.firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: true
+        immediate: true
+      loop:
+        - http
+        - https
+    - name: Ensure SSH service is allowed
+      ansible.builtin.firewalld:
+        service: ssh
+        state: enabled
+        permanent: true
+        immediate: true
+    - name: Block a specific IP address
+      ansible.builtin.firewalld:
+        source: "192.168.100.100"
+        state: drop
+        zone: public
+        permanent: true
+        immediate: true
+    - name: Remove FTP service from the default zone
+      ansible.builtin.firewalld:
+        service: ftp
+        state: disabled
+        permanent: true
+        immediate: true

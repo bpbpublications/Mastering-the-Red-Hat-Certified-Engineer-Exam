@@ -1,0 +1,14 @@
+---
+- name: Ensure web server is installed and running
+  hosts: web
+  become: true
+  tasks:
+    - name: Install web server
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+    - name: Start Apache
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true

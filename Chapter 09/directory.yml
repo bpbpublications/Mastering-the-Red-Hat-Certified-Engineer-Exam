@@ -1,0 +1,10 @@
+---
+- name: Ensure a directory exists
+  hosts: all
+  become: true
+  tasks:
+    - name: Create a directory
+      ansible.builtin.file:
+        path: /opt/mydirectory
+        state: directory
+        mode: '0755'

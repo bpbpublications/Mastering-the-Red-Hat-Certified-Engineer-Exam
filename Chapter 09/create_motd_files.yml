@@ -1,0 +1,13 @@
+---
+- name: Create MOTD files for each host group
+  hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Create MOTD file for each host
+      template:
+        src: templates/motd.j2
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: '0644'

@@ -1,0 +1,11 @@
+---
+- name: Ensure critical services are running
+  hosts: all
+  tasks:
+    - name: Ensure services are started
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      loop:
+        - httpd
+        - mariadb

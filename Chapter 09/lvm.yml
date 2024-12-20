@@ -1,0 +1,41 @@
+---
+- name: Create logical volume with error handling
+  hosts: localhost
+  vars:
+    required_space_mb: 500
+
+  tasks:
+    - name: Check if volume group exists
+      ansible.builtin.command: vgdisplay vgname
+      register: vg_check
+      ignore_errors: yes
+
+    - name: Fail if volume group does not exist
+      ansible.builtin.fail:
+        msg: "Volume group vgname does not exist."
+      when: vg_check.rc != 0
+
+    - name: Check available space in the volume group
+      ansible.builtin.command: vgdisplay -C --units m -o vg_free vgname --noheadings --nosuffix
+      register: vg_free_space
+
+    - name: Parse available space
+      ansible.builtin.set_fact:
+        available_space: "{{ vg_free_space.stdout | trim | float }}"
+
+    - name: Fail if not enough space is available
+      ansible.builtin.ail:
+        msg: "Not enough space in volume group vgname."
+      when: available_space < required_space_mb
+
+    - name: Create a logical volume
+      community.general.lvol:
+        vg: vgname
+        lv: lvname
+        size: "{{ required_space_mb }}"
+      when: vg_check.rc == 0 and available_space >= required_space_mb
+
+    - name: Create ext4 filesystem on logical volume
+      community.general.filesystem:
+        fstype: ext4
+        dev: "/dev/vgname/lvname"

@@ -1,0 +1,14 @@
+---
+- name: Ensure specific package version is installed
+  hosts: all
+  tasks:
+    - name: Check if the required package version is installed
+      ansible.builtin.command: rpm -qa bash | grep -e '5.2.26'
+      register: package_check
+      ignore_errors: true
+
+    - name: Install the required package version
+      ansible.builtin.dnf:
+        name: apache=5.2.26
+        state: present
+      when: package_check.rc != 0

@@ -1,0 +1,6 @@
+---
+- name: Ensure directory /example exists
+  ansible.builtin.file:
+    path: /example
+    state: directory
+    mode: '0755'

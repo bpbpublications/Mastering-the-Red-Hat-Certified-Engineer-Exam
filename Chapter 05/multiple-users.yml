@@ -1,0 +1,17 @@
+---
+- name: Manage Multiple Users
+  hosts: all
+  become: true
+  vars:
+    users:
+      - name: john
+        shell: /bin/bash
+      - name: jane
+        shell: /bin/zsh
+  tasks:
+    - name: Ensure user exists
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        shell: "{{ item.shell }}"
+        state: present
+      loop: "{{ users }}" 

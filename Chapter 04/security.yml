@@ -1,0 +1,10 @@
+---
+- name: Apply security updates
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure all packages are updated with security patches
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+        security: true

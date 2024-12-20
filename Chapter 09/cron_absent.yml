@@ -1,0 +1,9 @@
+---
+- name: Remove a cron job
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure a specific cron job is absent
+      ansible.builtin.cron:
+        name: "Daily backup"
+        state: absent

@@ -1,0 +1,13 @@
+---
+- name: Configure Web Server with NGINX
+  hosts: web_servers
+  collections:
+    - community.nginx
+  tasks:
+    - name: Include NGINX role from community collection
+      ansible.builtin.include_role:
+        name: nginx
+      vars:
+        nginx_http_params:
+          - name: client_max_body_size
+            value: '10M'

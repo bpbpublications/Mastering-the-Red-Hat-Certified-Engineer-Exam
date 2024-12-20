@@ -1,0 +1,12 @@
+module myservice 1.0;
+require {
+    type myservice_t;
+    type myservice_var_t;
+    type http_port_t;
+    class process { fork transition signal };
+    class file { getattr read write open };
+    class tcp_socket { name_connect };
+}
+allow myservice_t myservice_var_t:file { getattr read write open };
+allow myservice_t http_port_t:tcp_socket name_connect;
+type_transition myservice_t myservice_var_t:process myservice_t;

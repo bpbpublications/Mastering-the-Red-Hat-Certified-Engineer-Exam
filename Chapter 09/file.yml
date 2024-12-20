@@ -1,0 +1,14 @@
+---
+- name: Ensure file content
+  hosts: all
+  become: true
+  tasks:
+    - name: Create a file with specific content
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: |
+          Welcome to the server!
+          Unauthorized access is prohibited.
+        owner: root
+        group: root
+        mode: '0644'

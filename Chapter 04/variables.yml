@@ -1,0 +1,11 @@
+---
+- name: Configure web server
+  hosts: all
+  vars:
+    http_port: 80
+    max_clients: 200
+  tasks:
+  - name: Start a web server
+    ansible.builtin.yum:
+      name: httpd
+      state: present

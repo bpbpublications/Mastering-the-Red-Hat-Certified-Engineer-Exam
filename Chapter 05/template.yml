@@ -1,0 +1,12 @@
+---
+- name: Template configuration
+  hosts: webservers
+  become: true
+  tasks:   
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: app.conf.j2
+        dest: /etc/myapp/app.conf
+      vars:
+        server_address: '192.168.1.10'
+        database_name: 'mydatabase'

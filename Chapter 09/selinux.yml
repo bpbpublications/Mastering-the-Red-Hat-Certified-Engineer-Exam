@@ -1,0 +1,15 @@
+---
+- name: Ensure SELinux is in enforcing mode
+  hosts: all
+  become: yes
+  tasks:
+    - name: Set SELinux to enforcing
+      ansible.builtin.command:
+        cmd: setenforce 1
+        when: ansible_selinux.status == 'enabled'
+    
+    - name: Ensure SELinux is set to enforcing in config file
+      ansible.builtin.replace:
+        path: /etc/selinux/config
+        regexp: '^SELINUX=.*'
+        replace: 'SELINUX=enforcing'

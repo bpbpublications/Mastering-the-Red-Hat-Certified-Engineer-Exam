@@ -1,0 +1,17 @@
+---
+- name: Test Apache Installation and Running Status
+  hosts: web_servers
+  become: true
+  gather_facts: false
+
+  tasks:
+  - name: Check if Apache is installed
+    ansible.builtin.command: rpm -q httpd
+    register: rpm_query
+    failed_when: rpm_query.rc != 0
+  - name: Ensure Apache is running
+    ansible.builtin.service:
+      name: httpd
+      state: started
+    register: apache_status
+    failed_when: apache_status.state != "running"
