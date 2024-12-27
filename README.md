@@ -6,7 +6,7 @@ This is the repository for
 [Mastering the Red Hat Certified Engineer (RHCE) Exam](https://bpbonline.com/products/mastering-the-red-hat-certified-engineer-rhce-exam?variant=44305789976776),
 published by BPB Publications.
 
-<img src="9789365896800.jpg">
+![book cover](9789365896800.jpg)
 
 ## About the Book
 
