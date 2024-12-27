@@ -2,8 +2,9 @@
 
 Your complete guide to Linux administration, automation, and certification.
 
-This is the repository for [Mastering the Red Hat Certified Engineer (RHCE) Exam
-](https://bpbonline.com/products/mastering-the-red-hat-certified-engineer-rhce-exam?variant=44305789976776),published by BPB Publications.
+This is the repository for
+[Mastering the Red Hat Certified Engineer (RHCE) Exam](https://bpbonline.com/products/mastering-the-red-hat-certified-engineer-rhce-exam?variant=44305789976776),
+published by BPB Publications.
 
 <img src="9789365896800.jpg">
 
