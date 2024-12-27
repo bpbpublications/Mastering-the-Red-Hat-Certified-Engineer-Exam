@@ -18,14 +18,14 @@ By the end, readers will be fully prepared for the RHCE exam and equipped with p
 
 ## What You Will Learn
 
-• The essentials of Red Hat Enterprise Linux administration.
+* The essentials of Red Hat Enterprise Linux administration.
 
-• Automation of tasks using Ansible and scripting tools.
+* Automation of tasks using Ansible and scripting tools.
 
-• Effective management of networking and security in RHEL.
+* Effective management of networking and security in RHEL.
 
-• Hands-on skills in SELinux configuration and troubleshooting.
+* Hands-on skills in SELinux configuration and troubleshooting.
 
-• Practical insights into container management and deployment.
+* Practical insights into container management and deployment.
 
-• Preparation techniques for success in the RHCE certification.
+* Preparation techniques for success in the RHCE certification.
